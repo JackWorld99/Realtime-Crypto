@@ -7,7 +7,7 @@ xhttp.open(
 xhttp.send(null);
 var data = JSON.parse(xhttp.responseText);
 
-console.log(data[0]);
+// console.log(data[0]);
 
 var cryptocurrencies;
 var timerID;
@@ -36,11 +36,11 @@ function updateRanks(cryptocurrencies) {
 }
 
 // function getRandomScoreIncrease() {
-//     return getRandomBetween(10, 20);
+//   return getRandomBetween(10, 20);
 // }
 
 // function getRandomBetween(min, max) {
-//     return Math.floor(Math.random() * max) + min;
+//   return Math.floor(Math.random() * max) + min;
 // }
 
 function fetchNewData(data, attributeName, name) {
@@ -65,14 +65,14 @@ function getNewData() {
 
   for (var i = 0; i < cryptocurrencies.length; i++) {
     var cryptocurrency = cryptocurrencies[i];
+
     cryptocurrency.volume_24h = fetchNewData(
       newdata,
       "total_volume",
       cryptocurrency.name
     );
-    cryptocurrency.$item
-      .find(".volume_24h")
-      .text(Number(cryptocurrency.volume_24h).toFixed(2));
+    cryptocurrency.$item.find(".volume_24h").text(cryptocurrency.volume_24h);
+
     cryptocurrency.price = fetchNewData(
       newdata,
       "current_price",
@@ -81,6 +81,7 @@ function getNewData() {
     cryptocurrency.$item
       .find(".price")
       .text(Number(cryptocurrency.price).toFixed(2));
+
     cryptocurrency.price_percentage = fetchNewData(
       newdata,
       "price_change_percentage_24h",
@@ -88,7 +89,8 @@ function getNewData() {
     );
     cryptocurrency.$item
       .find(".price_percentage")
-      .text(Number(cryptocurrency.price_percentage).toFixed(2));
+      .text(cryptocurrency.price_percentage);
+
     cryptocurrency.percentage_change_24h = fetchNewData(
       newdata,
       "market_cap_change_percentage_24h",
@@ -97,8 +99,14 @@ function getNewData() {
     cryptocurrency.$item
       .find(".percentage_change_24h")
       .text(Number(cryptocurrency.percentage_change_24h).toFixed(2));
+
     // cryptocurrency.percentage_change_24h += getRandomScoreIncrease();
-    // cryptocurrency.$item.find(".percentage_change_24h").text(cryptocurrency.percentage_change_24h);
+    // console.log(cryptocurrency.percentage_change_24h);
+    // let change =
+    //   Math.round(
+    //     (cryptocurrency.percentage_change_24h + Number.EPSILON) * 100
+    //   ) / 100;
+    // cryptocurrency.$item.find(".percentage_change_24h").text(change);
   }
   cryptocurrencies.sort(descending);
   updateRanks(cryptocurrencies);
@@ -119,16 +127,16 @@ function resetBoard() {
     cryptocurrencies.push({
       name: data[i].name,
       symbol: data[i].symbol,
-      price: Number(data[i].current_price).toFixed(2),
-      price_percentage: Number(data[i].price_change_percentage_24h).toFixed(2),
-      market_cap: Number(data[i].market_cap).toFixed(2),
-      circulating_supply: Number(
-        Math.round(data[i].circulating_supply)
-      ).toFixed(2),
-      volume_24h: Number(data[i].total_volume).toFixed(2),
+      price: data[i].current_price,
+      price_percentage: Number(
+        Number(data[i].price_change_percentage_24h).toFixed(2)
+      ),
+      market_cap: data[i].market_cap,
+      circulating_supply: Math.round(data[i].circulating_supply),
+      volume_24h: data[i].total_volume,
       percentage_change_24h: Number(
-        data[i].market_cap_change_percentage_24h
-      ).toFixed(2),
+        Number(data[i].market_cap_change_percentage_24h).toFixed(2)
+      ),
     });
   }
 
