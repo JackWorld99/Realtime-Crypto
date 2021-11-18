@@ -1,5 +1,10 @@
+/* html{
+    background-color: black;
+} */
+
 .table {
-    background-color: #ffe08a;
+    background-color: #2ee7c9;
+    /* color: #fff; */
 }
 
 #leaderboard #cryptocurrencies tr {
@@ -13,7 +18,7 @@
 }
 
 .table thead th {
-    color: #946c00;
+    color: #2e766c;
 }
 
 .table tbody {
@@ -25,7 +30,7 @@
 }
 
 .name {
-    width: 200px;
+    width: 150px;
 }
 
 .symbol {
